@@ -1,0 +1,26 @@
+@model Futbol.Models.Equipo
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<fieldset>
+    <legend>Equipo</legend>
+
+    <div class="display-label">Nombre</div>
+    <div class="display-field">@Model.Nombre</div>
+
+    <div class="display-label">Ciudad</div>
+    <div class="display-field">@Model.Ciudad</div>
+
+    <div class="display-label">Plantilla</div>
+    <div class="display-field">@(Model.Plantilla == null ? "None" : Model.Plantilla.Count.ToString())</div>
+</fieldset>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id=Model.ID }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>
+
+

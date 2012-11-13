@@ -1,0 +1,53 @@
+@model IEnumerable<Futbol.Models.Equipo>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create") | @Html.ActionLink("Ver Todos los jugadores", "Index", "Jugadores")
+</p>
+<table>
+    <tr>
+        
+        <th>
+            Nombre
+        </th>
+        <th>
+            Ciudad
+        </th>
+        <th>
+            Division
+        </th>
+        <th>
+            Plantilla
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+			@item.Nombre
+        </td>
+        <td>
+			@item.Ciudad
+        </td>
+        <td>
+			@item.Division
+        </td>
+        <td>
+			@(item.Plantilla == null ? "None" : item.Plantilla.Count.ToString())
+        </td>
+           <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.ID }) |
+            @Html.ActionLink("Details", "Details", new { id=item.ID }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.ID })
+        </td>
+    </tr>
+}
+</table>
+
+

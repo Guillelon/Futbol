@@ -1,0 +1,39 @@
+@model Futbol.Models.Jugador
+
+@* This partial view defines form fields that will appear when creating and editing entities *@
+
+<div class="editor-label">
+    @Html.LabelFor(model => model.Nombre)
+</div>
+<div class="editor-field">
+    @Html.EditorFor(model => model.Nombre)
+    @Html.ValidationMessageFor(model => model.Nombre)
+</div>
+
+<div class="editor-label">
+    @Html.LabelFor(model => model.Apellido)
+</div>
+<div class="editor-field">
+    @Html.EditorFor(model => model.Apellido)
+    @Html.ValidationMessageFor(model => model.Apellido)
+</div>
+
+<div class="editor-label">
+    @Html.LabelFor(model => model.Nacionalidad)
+</div>
+<div class="editor-field">
+    @Html.EditorFor(model => model.Nacionalidad)
+    @Html.ValidationMessageFor(model => model.Nacionalidad)
+</div>
+
+<div class="editor-label">
+    Equipo
+</div>
+<div class="editor-field">
+    @Html.DropDownListFor(model => model.EquipoId, ((IEnumerable<Futbol.Models.Equipo>)ViewBag.PossibleEquipoes).Select(option => new SelectListItem {
+        Text = Html.DisplayTextFor(_ => option.Nombre).ToString(), 
+        Value = option.ID.ToString(),
+        Selected = (Model != null) && (option.ID == Model.EquipoId)
+    }), "Choose...")
+    @Html.ValidationMessageFor(model => model.EquipoId)
+</div>

@@ -1,0 +1,9 @@
+﻿@{
+    ViewBag.Title = "Upload";
+}
+
+@using (Html.BeginForm("Upload", "CrearPlantilla", FormMethod.Post, new { enctype = "multipart/form-data" }))
+{
+    <input type="file" name="file" />
+    <input type="submit" value="OK" />
+}

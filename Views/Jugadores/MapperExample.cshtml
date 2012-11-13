@@ -1,0 +1,36 @@
+@model IEnumerable<Futbol.ViewModels.JugadorViewModels>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table>
+    <tr>
+        
+        <th>
+            Nombre
+        </th>
+       
+
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+      
+        <td>
+			@item.Nombre @item.Apellido
+        </td>
+
+  
+
+    </tr>
+}
+
+</table>
+
+
