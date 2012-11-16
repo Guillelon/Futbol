@@ -1,4 +1,4 @@
-@model Futbol.Models.Jugador
+@model Futbol.ViewModels.JugadorCreateViewModel
 
 @* This partial view defines form fields that will appear when creating and editing entities *@
 
@@ -30,10 +30,10 @@
     Equipo
 </div>
 <div class="editor-field">
-    @Html.DropDownListFor(model => model.EquipoId, ((IEnumerable<Futbol.Models.Equipo>)ViewBag.PossibleEquipoes).Select(option => new SelectListItem {
+    @Html.DropDownListFor(model => model.EquipoSeleccionado, Model.PosiblesEquipos.Select(option => new SelectListItem {
         Text = Html.DisplayTextFor(_ => option.Nombre).ToString(), 
         Value = option.ID.ToString(),
-        Selected = (Model != null) && (option.ID == Model.EquipoId)
+        Selected = (Model != null) && (option.ID == Model.EquipoSeleccionado)
     }), "Choose...")
-    @Html.ValidationMessageFor(model => model.EquipoId)
+    @Html.ValidationMessageFor(model => model.EquipoSeleccionado)
 </div>

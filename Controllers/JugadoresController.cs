@@ -26,21 +26,19 @@ namespace Futbol.Controllers
 			this.jugadorRepository = jugadorRepository;
         }
 
-        //
-        // GET: /Jugadores/
-
-        public ViewResult MapperExample()
-        {
-            IEnumerable<Jugador> players = jugadorRepository.All;
-            IEnumerable<JugadorViewModels> playersView = Mapper.Map<IEnumerable<Jugador>, IEnumerable<JugadorViewModels>>(players);
-            return View(playersView);
-        }
 
         public ViewResult Index()
         {
-            var a = jugadorRepository.AllIncluding(jugador => jugador.Equipo);
-            //var b = a.Where(p => p.Nombre.Contains("M"));
-            return View(a);
+            var jugadores = jugadorRepository.AllIncluding(jugador => jugador.Equipo);
+            var jugadoresViewModel = ManualMapperJugadoresList(jugadores.ToList());
+            return View(jugadoresViewModel);
+        }
+
+        public ViewResult Plantilla(int id) 
+        {
+            var equipo = equipoRepository.Find(id);
+            var jugadoresViewModel = ManualMapperJugadoresList(equipo.Plantilla.ToList());
+            return View(jugadoresViewModel);
         }
 
         //
@@ -56,23 +54,23 @@ namespace Futbol.Controllers
 
         public ActionResult Create()
         {
-			ViewBag.PossibleEquipoes = equipoRepository.All;
-            return View();
+            var jugadorCreateViewModel = new JugadorCreateViewModel(equipoRepository.All.ToList());
+            return View(jugadorCreateViewModel);
         } 
 
         //
         // POST: /Jugadores/Create
 
         [HttpPost]
-        public ActionResult Create(Jugador jugador)
+        public ActionResult Create(JugadorCreateViewModel jugadorViewModel)
         {
             if (ModelState.IsValid) {
+                var jugador = ManualMapperJugadorCreateViewModel(jugadorViewModel);
                 jugadorRepository.InsertOrUpdate(jugador);
                 jugadorRepository.Save();
                 return RedirectToAction("Index");
             } else {
-				ViewBag.PossibleEquipoes = equipoRepository.All;
-				return View();
+                return View(jugadorViewModel);
 			}
         }
         
@@ -82,7 +80,7 @@ namespace Futbol.Controllers
         public ActionResult Edit(int id)
         {
 			ViewBag.PossibleEquipoes = equipoRepository.All;
-             return View(jugadorRepository.Find(id));
+            return View(jugadorRepository.Find(id));
         }
 
         //
@@ -119,6 +117,30 @@ namespace Futbol.Controllers
             jugadorRepository.Save();
 
             return RedirectToAction("Index");
+        }
+
+        private IList<JugadorListViewModels> ManualMapperJugadoresList(List<Jugador> jugadores) 
+        {
+            var jugadoresViewModel = new List<JugadorListViewModels>();
+            foreach (var jugador in jugadores) 
+            {
+                var jugadorViewModel = new JugadorListViewModels();
+                jugadorViewModel.ID = jugador.ID;
+                jugadorViewModel.Apellido = jugador.Apellido;
+                jugadorViewModel.Equipo = jugador.Equipo.Nombre;
+                jugadoresViewModel.Add(jugadorViewModel);
+            }
+            return jugadoresViewModel;
+        }
+
+        private Jugador ManualMapperJugadorCreateViewModel(JugadorCreateViewModel jugadorViewModel)
+        {
+            var jugador = new Jugador();
+            jugador.Nombre = jugadorViewModel.Nombre;
+            jugador.Apellido = jugadorViewModel.Apellido;
+            jugador.Nacionalidad = jugadorViewModel.Nacionalidad;
+            jugador.EquipoId = jugadorViewModel.EquipoSeleccionado;
+            return jugador;
         }
     }
 }

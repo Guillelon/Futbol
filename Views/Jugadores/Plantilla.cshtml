@@ -1,0 +1,40 @@
+@model IList<Futbol.ViewModels.JugadorListViewModels>
+@{
+    ViewBag.Title = "Index";
+}
+@if (Model.Any())
+{
+    <h2>Jugadores del equipo @Model.FirstOrDefault().Equipo</h2>
+}
+
+
+<table>
+    <tr>
+
+        <th>Apellido
+        </th>
+        <th>Equipo
+        </th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+
+            <td>
+                @item.Apellido
+            </td>
+            <td>
+                @Html.DisplayTextFor(_ => item.Equipo).ToString()
+            </td>
+            <td>
+                @Html.ActionLink("Editar", "Edit", new { id = item.ID }) |
+            @Html.ActionLink("Detalles", "Details", new { id = item.ID }) |
+            @Html.ActionLink("Borrar", "Delete", new { id = item.ID })
+            </td>
+        </tr>
+    }
+</table>
+
+

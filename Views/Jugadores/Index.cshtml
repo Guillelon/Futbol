@@ -1,10 +1,10 @@
-@model IEnumerable<Futbol.Models.Jugador>
+@model IList<Futbol.ViewModels.JugadorListViewModels>
 
 @{
     ViewBag.Title = "Index";
 }
 
-<h2>Index</h2>
+<h2>Jugadores</h2>
 
 <p>
     @Html.ActionLink("Create New", "Create") | @Html.ActionLink("Volver a equipos", "Index", "Equipos")
@@ -13,11 +13,7 @@
     <tr>
         
         <th>
-            Nombre
-        </th>
-       
-        <th>
-            Nacionalidad
+            Apellido
         </th>
         <th>
             Equipo
@@ -29,25 +25,18 @@
     <tr>
       
         <td>
-			@item.Nombre @item.Apellido
-        </td>
-      
-        <td>
-			@item.Nacionalidad
+             @item.Apellido
         </td>
         <td>
-			@Html.DisplayTextFor(_ => item.Equipo.Nombre).ToString()
+			@Html.DisplayTextFor(_ => item.Equipo).ToString()
         </td>
           <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.ID }) |
-            @Html.ActionLink("Details", "Details", new { id=item.ID }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.ID })
+            @Html.ActionLink("Editar", "Edit", new { id=item.ID }) |
+            @Html.ActionLink("Detalles", "Details", new { id=item.ID }) |
+            @Html.ActionLink("Borrar", "Delete", new { id=item.ID })
         </td>
-  
-
     </tr>
 }
-
 </table>
 
 

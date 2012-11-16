@@ -5,9 +5,12 @@ using System.Web;
 
 namespace Futbol.ViewModels
 {
-    public class JugadorViewModels
+    public class JugadorListViewModels
     {
+        public int ID { get; set; }
         public string Nombre { get; set; }
         public string Apellido { get; set; }
+        public string Nacionalidad { get; set; }
+        public string Equipo { get; set; }
     }
 }

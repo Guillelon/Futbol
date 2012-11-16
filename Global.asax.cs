@@ -47,8 +47,8 @@ namespace Futbol
         public static void Configure()
         {
 
-            Mapper.CreateMap<Jugador, JugadorViewModels>();
-            Mapper.CreateMap<JugadorViewModels, Jugador>();
+            Mapper.CreateMap<Jugador, JugadorListViewModels>();
+            Mapper.CreateMap<JugadorListViewModels, Jugador>();
 
         }
     }
